@@ -1,8 +1,10 @@
 import types
 import unittest
+import flask
 
 from unittest.mock import Mock, patch
 from scraper import Tweet, _TweetScraper
+from api import app
 
 
 class TweetTestCase(unittest.TestCase):
@@ -118,6 +120,26 @@ class _TweetScraperTestCase(unittest.TestCase):
            autospec=True)
     def test_scrape(self, mock__get_tweets, mock_to_repr, mock_sleep):
         self.assertEqual(len(self.scraper.scrape()), 3)
+
+
+class TweetsByHashtagTestCase(unittest.TestCase):
+    def test_request(self):
+        with app.test_request_context('/hashtags/Python'):
+            self.assertEqual(flask.request.path, '/hashtags/Python')
+            self.assertNotIn('limit', flask.request.args)
+        with app.test_request_context('/hashtags/Python?limit=20'):
+            self.assertEqual(flask.request.path, '/hashtags/Python')
+            self.assertEqual(int(flask.request.args['limit']), 20)
+
+
+class TweetsByUserTestCase(unittest.TestCase):
+    def test_request(self):
+        with app.test_request_context('/users/agvsmontero'):
+            self.assertEqual(flask.request.path, '/users/agvsmontero')
+            self.assertNotIn('limit', flask.request.args)
+        with app.test_request_context('/users/agvsmontero?limit=20'):
+            self.assertEqual(flask.request.path, '/users/agvsmontero')
+            self.assertEqual(int(flask.request.args['limit']), 20)
 
 
 if __name__ == '__main__':
