@@ -1,8 +1,8 @@
 # Tweet Scraper
 
-The script uses Flask as a RESTful API backend and Selenium in order to scrape tweets.
+The script uses Flask as a RESTful API backend and Selenium in order to scrape tweets from Twitter.
 
-## How to use
+## Installation
 
 1. Make sure you're on a computer with either macOS or Linux installed. Windows isn't supported.
 
@@ -20,7 +20,31 @@ pip install -r requirements.txt
 python api.py
 ```
 
-6. Run tests:
+## How to use
+
+### Get tweets by a hashtag
+
+**Get the list of tweets with the given hashtag.**
+Optional parameters:
+* *limit:* integer, specifies the number of tweets to retrieve, default is 30
+
+Sample requests:
+http://127.0.0.1:5000/hashtags/Django
+http://127.0.0.1:5000/hashtags/Python?limit=40
+
+### Get user tweets
+
+**Get the list of tweets that user has on her feed.**
+Optional parameters:
+* *limit:* integer, specifies the number of tweets to retrieve, default is 30
+
+Sample requests:
+http://127.0.0.1:5000/users/agvsmontero
+http://127.0.0.1:5000/users/kianathehackr?limit=10
+
+## Tests
+
+In order to run tests:
 ```bash
 python test.py
 ```
