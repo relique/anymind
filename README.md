@@ -1,6 +1,8 @@
 # Tweet Scraper
 
 The script uses Flask as a RESTful API backend and Selenium in order to scrape tweets from Twitter.
+Flask will open a local web server on port 5000.
+Selenium will spin a browser in a separate window, so don't worry about that, just let it finish.
 
 ## Installation
 
