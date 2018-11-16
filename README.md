@@ -46,5 +46,5 @@ Sample requests:
 
 `cd` to the root script folder and run:
 ```bash
-python test.py
+python tests.py
 ```
