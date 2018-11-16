@@ -72,6 +72,8 @@ class Tweet(object):
 
 class _TweetScraper(object):
     """Base class for creating tweet scrapers."""
+    query_type = 'hashtag'
+
     def __init__(self, query, limit):
         self.query = query
         self.limit = limit
@@ -135,7 +137,7 @@ class _TweetScraper(object):
 
 class TweetsByHashtagScraper(_TweetScraper):
     """Tweet scraper that filters by a hashtag."""
-    query_type = 'hashtag'
+    pass
 
 
 class TweetsByUserScraper(_TweetScraper):
