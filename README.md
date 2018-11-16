@@ -1,8 +1,8 @@
-# Twitter Scraper by [Adi](https://github.com/relique)
+# Tweet Scraper
 
 The script uses Flask as a RESTful API backend and Selenium in order to scrape tweets.
 
-### How to Use
+## How to use
 
 1. Make sure you're on a computer with either macOS or Linux installed. Windows isn't supported.
 
@@ -11,16 +11,16 @@ The script uses Flask as a RESTful API backend and Selenium in order to scrape t
 3. Install the latest Google Chrome browser.
 
 4. Install requirements:
-  ```bash
-  pip install -r requirements.txt
-  ```
+```bash
+pip install -r requirements.txt
+```
 
 5. `cd` to the root script folder and run:
-  ```bash
-  python api.py
-  ```
+```bash
+python api.py
+```
 
 6. Run tests:
-   ```bash
-   python test.py
-   ```
+```bash
+python test.py
+```
