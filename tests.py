@@ -1,10 +1,11 @@
+import json
 import types
 import unittest
 import flask
 
 from unittest.mock import Mock, patch
 from scraper import Tweet, _TweetScraper
-from api import app
+from api import app, DEFAULT_LIMIT
 
 
 class TweetTestCase(unittest.TestCase):
@@ -131,15 +132,33 @@ class TweetsByHashtagTestCase(unittest.TestCase):
             self.assertEqual(flask.request.path, '/hashtags/Python')
             self.assertEqual(int(flask.request.args['limit']), 20)
 
+    def test_response(self):
+        with app.test_client() as client:
+            response = client.get('/hashtags/Python')
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(len(json.loads(response.data)), DEFAULT_LIMIT)
+            response = client.get('/hashtags/Python?limit=5')
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(len(json.loads(response.data)), 5)
+
 
 class TweetsByUserTestCase(unittest.TestCase):
     def test_request(self):
-        with app.test_request_context('/users/agvsmontero'):
-            self.assertEqual(flask.request.path, '/users/agvsmontero')
+        with app.test_request_context('/users/stevewoz'):
+            self.assertEqual(flask.request.path, '/users/stevewoz')
             self.assertNotIn('limit', flask.request.args)
-        with app.test_request_context('/users/agvsmontero?limit=20'):
-            self.assertEqual(flask.request.path, '/users/agvsmontero')
+        with app.test_request_context('/users/stevewoz?limit=20'):
+            self.assertEqual(flask.request.path, '/users/stevewoz')
             self.assertEqual(int(flask.request.args['limit']), 20)
+
+    def test_response(self):
+        with app.test_client() as client:
+            response = client.get('/users/stevewoz')
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(len(json.loads(response.data)), DEFAULT_LIMIT)
+            response = client.get('/users/stevewoz?limit=5')
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(len(json.loads(response.data)), 5)
 
 
 if __name__ == '__main__':
