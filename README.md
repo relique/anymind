@@ -24,27 +24,25 @@ python api.py
 
 ### Get tweets by a hashtag
 
-**Get the list of tweets with the given hashtag.**
-Optional parameters:
+Returns the list of tweets with the given hashtag. Optional parameters:
 * *limit:* integer, specifies the number of tweets to retrieve, default is 30
 
 Sample requests:
-http://127.0.0.1:5000/hashtags/Django
-http://127.0.0.1:5000/hashtags/Python?limit=40
+* http://127.0.0.1:5000/hashtags/Django
+* http://127.0.0.1:5000/hashtags/Python?limit=40
 
 ### Get user tweets
 
-**Get the list of tweets that user has on her feed.**
-Optional parameters:
+Returns the list of tweets that user has on her feed. Optional parameters:
 * *limit:* integer, specifies the number of tweets to retrieve, default is 30
 
 Sample requests:
-http://127.0.0.1:5000/users/agvsmontero
-http://127.0.0.1:5000/users/kianathehackr?limit=10
+* http://127.0.0.1:5000/users/agvsmontero
+* http://127.0.0.1:5000/users/kianathehackr?limit=10
 
 ## Tests
 
-In order to run tests:
+`cd` to the root script folder and run:
 ```bash
 python test.py
 ```
