@@ -9,9 +9,14 @@ from selenium.webdriver.common.keys import Keys
 class Tweet(object):
     """Single tweet representation class."""
     def __init__(self, elem):
+        # A Selenium's WebElement object that contains a tweet's HTML
+        # must be passed here.
         self.elem = elem
 
     def _get_badge_count(self, subclass):
+        """Return a number of likes/retweets/etc. based on an HTML
+        class.
+        """
         elem = self.elem.find_element_by_css_selector(
             f'.ProfileTweet-action--{subclass} .ProfileTweet-actionCountForPresentation')
         return elem.text
@@ -58,7 +63,7 @@ class Tweet(object):
 
     def to_representation(self):
         """Convert a tweet into an API-friendly representation."""
-        data = {
+        return {
             'account': self._get_account_data(),
             'date': self._get_date(),
             'hashtags': list(self.hashtags),
@@ -67,7 +72,6 @@ class Tweet(object):
             'retweets': self.retweets,
             'text': self.text
         }
-        return data
 
 
 class _TweetScraper(object):
@@ -104,7 +108,7 @@ class _TweetScraper(object):
 
     @property
     def url(self):
-        """Build a Twitter URL to scrape from."""
+        """Return a Twitter URL to scrape from."""
         base_url = 'https://twitter.com/search'
         if self.query_type == 'hashtag':
             return f'{base_url}?q=%23{self.query}'
@@ -121,7 +125,9 @@ class _TweetScraper(object):
 
     @staticmethod
     def get_driver_path():
-        """Build an absolute path to a Chrome Driver.
+        """Return an absolute path to a Chrome Driver.
+
+        The drivers are located in the project's `webdrivers` folder.
         Additionally check whether the OS is compatible or not.
         """
         osname = platform.system().lower()
@@ -131,8 +137,8 @@ class _TweetScraper(object):
             filename = 'chromedriver_mac'
         else:
             raise Exception('You can only run it on either macOS or Linux.')
-        return os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                            'webdrivers', filename)
+        return os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), 'webdrivers', filename)
 
 
 class TweetsByHashtagScraper(_TweetScraper):
